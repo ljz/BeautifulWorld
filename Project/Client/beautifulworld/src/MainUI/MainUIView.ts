@@ -5,6 +5,7 @@ class MainUIView extends BaseView {
 	public name:string = "MainUIView";
 
 	public midBtn: eui.Button;
+	public midBtnType: number;
 	
 	public constructor() {
 		super();
@@ -36,11 +37,14 @@ class MainUIView extends BaseView {
 	private onMidBtnClick() {
 		//广播消息出去。
 		console.log("广播消息出去。");
-		SendEvent(EventType.CLICK_MID_BTN, 1);
+		SendEvent(EventType.CLICK_MID_BTN, this.midBtnType);
 	}
 
 	private onUpdate(data: any) {
 		console.log("刷新主界面");
+		
+		this.midBtnType = data.type || this.midBtnType;
+		//girls....
 	}
 
 }
