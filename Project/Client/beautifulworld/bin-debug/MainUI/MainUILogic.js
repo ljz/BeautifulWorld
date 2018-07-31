@@ -34,6 +34,13 @@ var MainUILogic = (function (_super) {
         SendEvent(EventType.UPDATE_MAINUI, { stop: true });
     };
     MainUILogic.prototype.onGetNewData = function () {
+        console.log(">>>发送请求， 请求链接");
+        RES.getResByUrl("http://74.82.198.32:8090/get/image/url", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
+    };
+    MainUILogic.prototype.onGetComplete = function (data) {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete", data);
+        // var img: egret.Texture = <egret.Texture>event;//new egret.Texture();
+        // SendEvent(EventType.UPDATE_MAINUI, {data:texture});
     };
     return MainUILogic;
 }(BaseLogic));

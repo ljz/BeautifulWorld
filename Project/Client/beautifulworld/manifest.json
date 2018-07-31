@@ -21,12 +21,12 @@
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
-		"bin-debug/AssetAdapter.js",
+		"bin-debug/MainUI/MainUIView.js",
 		"bin-debug/UiInfoList.js",
 		"bin-debug/UiManager.js",
 		"bin-debug/Event/EventCenter.js",
 		"bin-debug/Event/EventType.js",
 		"bin-debug/MainUI/MainUILogic.js",
-		"bin-debug/MainUI/MainUIView.js"
+		"bin-debug/AssetAdapter.js"
 	]
 }

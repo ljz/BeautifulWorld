@@ -16,7 +16,7 @@ var MainUIView = (function (_super) {
         _this.skinName = MainUIViewSkin;
         _this.visible = true;
         _this.init();
-        _this.midBtnType = MAINUI_MIDBTN_START_TYPE;
+        _this.midBtnType = MAINUI_MIDBTN_UPDATE_TYPE;
         _this.timer = new egret.Timer(100, 0);
         _this.timer.addEventListener(egret.TimerEvent.TIMER, function () {
             // console.log("this.animIndex = ", this.animIndex)
@@ -33,7 +33,7 @@ var MainUIView = (function (_super) {
             this.animIndex = next;
         }, _this);
         _this.animIndex = 1;
-        _this.midBtn.label = "开始";
+        _this.midBtn.label = "刷新";
         return _this;
     }
     MainUIView.prototype.partAdded = function (partName, instance) {
@@ -112,6 +112,13 @@ var MainUIView = (function (_super) {
             this.timer.stop();
             this.midBtn.label = "开始";
             this.midBtnType = MAINUI_MIDBTN_START_TYPE;
+        }
+        if (data.data) {
+            var texture = data.data;
+            this.pic1.source = texture[1];
+            this.pic2.source = texture[2];
+            this.pic3.source = texture[3];
+            this.pic4.source = texture[4];
         }
         //girls....
     };

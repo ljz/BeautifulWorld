@@ -35,15 +35,39 @@ class MainUILogic extends BaseLogic{
 	}
 
 	protected onGetNewData(){
-		
-		RES.getResByUrl("http://74.82.198.32:8090/showImage?pic=child.jpeg", this.onGetComplete, this, RES.ResourceItem.TYPE_IMAGE);
+		console.log(">>>发送请求， 请求链接");
+		RES.getResByUrl("http://74.82.198.32:8090/get/image/url", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
+
+
 	}
 
-	public onGetComplete(texture: egret.Texture, url):void{
-        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete")
+
+
+
+	// private urlloader:egret.URLLoader; 
+	// this.urlloader = new egret.URLLoader(); 
+
+	// private urlreq:egret.URLRequest; 
+	// this.urlreq = new egret.URLRequest(); 
+	// urlreq.url = "http://httpbin.org/user-agent"; 
+
+	// this.urlloader.load( urlreq ); 
+
+
+	// this.urlloader.addEventListener(egret.Event.COMPLETE, this.onComplete, this); 
+	// 	private onComplete(event:egret.Event):void{ 
+	// 	console.log(this.urlloader.data); 
+	// } 
+
+
+
+
+	public onGetComplete(data:string):void{
+
+        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete", data);
         
         // var img: egret.Texture = <egret.Texture>event;//new egret.Texture();
-		SendEvent(EventType.UPDATE_MAINUI, {data:texture});
+		// SendEvent(EventType.UPDATE_MAINUI, {data:texture});
     }
 
 
