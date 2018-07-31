@@ -5,7 +5,19 @@ class MainUIView extends BaseView {
 	public name:string = "MainUIView";
 
 	public midBtn: eui.Button;
+	public pic1: eui.Image;
+	public pic2: eui.Image;
+	public pic3: eui.Image;
+	public pic4: eui.Image;
+
+	
+	
+	
+	
+	
+	
 	public midBtnType: string;
+
 
 	public timer:egret.Timer;
 
@@ -16,7 +28,7 @@ class MainUIView extends BaseView {
 		this.skinName = MainUIViewSkin;
 		this.visible = true;
 		this.init();
-		this.midBtnType = MAINUI_MIDBTN_START_TYPE;
+		this.midBtnType = MAINUI_MIDBTN_UPDATE_TYPE;
 		this.timer = new egret.Timer(100, 0);
 		this.timer.addEventListener(egret.TimerEvent.TIMER, 
 			function(){ 
@@ -37,7 +49,7 @@ class MainUIView extends BaseView {
 
 
 		this.animIndex = 1;
-		this.midBtn.label = "开始";
+		this.midBtn.label = "刷新";
 	}
 
 	protected partAdded(partName: string, instance: any): void {
@@ -133,6 +145,14 @@ class MainUIView extends BaseView {
 			this.midBtn.label = "开始";
 			 this.midBtnType = MAINUI_MIDBTN_START_TYPE;
 			
+		}
+
+		if(data.data){
+			var texture = data.data;
+			this.pic1.source = texture[1];
+			this.pic2.source = texture[2];
+			this.pic3.source = texture[3];
+			this.pic4.source = texture[4];
 		}
 		//girls....
 	}

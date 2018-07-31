@@ -35,7 +35,17 @@ class MainUILogic extends BaseLogic{
 	}
 
 	protected onGetNewData(){
-
+		
+		RES.getResByUrl("http://74.82.198.32:8090/showImage?pic=child.jpeg", this.onGetComplete, this, RES.ResourceItem.TYPE_IMAGE);
 	}
+
+	public onGetComplete(texture: egret.Texture, url):void{
+        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete")
+        
+        // var img: egret.Texture = <egret.Texture>event;//new egret.Texture();
+		SendEvent(EventType.UPDATE_MAINUI, {data:texture});
+    }
+
+
 
 }
