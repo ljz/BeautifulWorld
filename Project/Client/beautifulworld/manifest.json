@@ -16,8 +16,9 @@
 	"game": [
 		"bin-debug/BaseView.js",
 		"bin-debug/BaseLogic.js",
-		"bin-debug/MainUI/MainUIView.js",
-		"bin-debug/MainUI/MainUILogic.js",
+		"bin-debug/ThemeAdapter.js",
+		"bin-debug/Const.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/AssetAdapter.js",
@@ -25,7 +26,7 @@
 		"bin-debug/UiManager.js",
 		"bin-debug/Event/EventCenter.js",
 		"bin-debug/Event/EventType.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/ThemeAdapter.js"
+		"bin-debug/MainUI/MainUILogic.js",
+		"bin-debug/MainUI/MainUIView.js"
 	]
 }

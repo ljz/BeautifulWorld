@@ -2,9 +2,9 @@
 <e:Skin class="MainUIViewSkin" width="640" height="1386" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="164eef13673" ></w:Config>
 	<e:Image source="mainBg_jpg" x="0" y="0" width="640" height="1117" anchorOffsetY="0"/>
-	<e:Button id="midBtn" label="刷新" x="246" y="1051" anchorOffsetX="0" width="139" anchorOffsetY="0" height="53"/>
-	<e:Image id="pic1" width="300" height="500" x="8" y="0" anchorOffsetX="0" anchorOffsetY="0" source="pic1_jpg"/>
-	<e:Image width="300" height="500" x="330" y="0" anchorOffsetX="0" anchorOffsetY="0" id="pic0" source="pic2_jpg"/>
-	<e:Image width="300" height="500" x="8" y="528" anchorOffsetX="0" anchorOffsetY="0" id="pic2" source="pic3_jpg"/>
-	<e:Image width="300" height="500" x="330" y="528" anchorOffsetX="0" anchorOffsetY="0" id="pic3" source="pic5_jpg"/>
+	<e:Button id="midBtn" label="刷新" x="246" y="975.25" anchorOffsetX="0" width="139" anchorOffsetY="0" height="53"/>
+	<e:Image id="pic1" width="237" height="373" x="40" y="49" anchorOffsetX="0" anchorOffsetY="0" source="pic1_jpg"/>
+	<e:Image id="pic2" width="237" height="373" x="369" y="49" anchorOffsetX="0" anchorOffsetY="0" source="pic2_jpg"/>
+	<e:Image id="pic4" width="237" height="373" x="40" y="497.7" anchorOffsetX="0" anchorOffsetY="0" source="pic3_jpg"/>
+	<e:Image id="pic3" width="237" height="373" x="369" y="497.7" anchorOffsetX="0" anchorOffsetY="0" source="pic5_jpg"/>
 </e:Skin>

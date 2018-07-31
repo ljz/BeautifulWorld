@@ -3381,6 +3381,9 @@ var egret;
          */
         MovieClip.prototype.advanceFrame = function () {
             this.$currentFrameNum = this.$nextFrameNum;
+            // console.log("this.$nextFrameNum>>>>",this.$nextFrameNum)
+            // console.log("this.frameEvents = ", this.frameEvents);
+            // console.log("this.frameEvents.len = ", this.frameEvents, this.frameEvents.length);
             var event = this.frameEvents[this.$nextFrameNum];
             if (event && event != "") {
                 egret.MovieClipEvent.dispatchMovieClipEvent(this, egret.MovieClipEvent.FRAME_LABEL, event);

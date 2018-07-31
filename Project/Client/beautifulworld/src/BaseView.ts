@@ -32,6 +32,7 @@ class BaseView extends eui.Component implements eui.UIComponent {
 
 	//监听事件：关心的消息广播之后这里就听到了。然后刷新数据
 	protected ListenEvent() {
+        
 	
     }
 

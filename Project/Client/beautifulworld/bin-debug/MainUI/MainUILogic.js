@@ -12,6 +12,7 @@ var MainUILogic = (function (_super) {
     __extends(MainUILogic, _super);
     function MainUILogic() {
         var _this = _super.call(this) || this;
+        _this.midEvent = { MAINUI_MIDBTN_START_TYPE: _this.onBegin, MAINUI_MIDBTN_END_TYPE: _this.onEnd, MAINUI_MIDBTN_UPDATE_TYPE: _this.onGetNewData };
         console.log(">>>>>创建了MainUILogic对象");
         return _this;
     }
@@ -19,8 +20,20 @@ var MainUILogic = (function (_super) {
     MainUILogic.prototype.listenEvent = function () {
         AddEventListener(EventType.CLICK_MID_BTN, this.onClickMidBtn, this);
     };
-    MainUILogic.prototype.onClickMidBtn = function (type) {
-        console.log(">>>>处理逻辑");
+    MainUILogic.prototype.onClickMidBtn = function (e) {
+        var type = e.data;
+        var func = this.midEvent[type];
+        console.log(">>>>处理逻辑,func = ", func, "type = ", type);
+        func();
+    };
+    MainUILogic.prototype.onBegin = function () {
+        console.log("开始");
+        SendEvent(EventType.UPDATE_MAINUI, { start: true });
+    };
+    MainUILogic.prototype.onEnd = function () {
+        SendEvent(EventType.UPDATE_MAINUI, { stop: true });
+    };
+    MainUILogic.prototype.onGetNewData = function () {
     };
     return MainUILogic;
 }(BaseLogic));

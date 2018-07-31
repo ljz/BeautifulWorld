@@ -17,18 +17,21 @@ class MainUILogic extends BaseLogic{
 		
 	}
 	
-	protected onClickMidBtn(type){
-		console.log(">>>>处理逻辑");
+	protected onClickMidBtn(e: egret.Event){
+		let type = e.data;
 		let func = this.midEvent[type];
+		console.log(">>>>处理逻辑,func = ", func, "type = ", type);
+
 		func();
 	}
 
 	protected onBegin(){
-
+		console.log("开始");
+		SendEvent(EventType.UPDATE_MAINUI, {start:true});
 	}
 
 	protected onEnd(){
-
+		SendEvent(EventType.UPDATE_MAINUI, {stop:true});
 	}
 
 	protected onGetNewData(){
