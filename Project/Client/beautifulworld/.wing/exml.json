@@ -1,0 +1,10 @@
+{
+  "164eef13673": {
+    "path": "MainUI/MainUIView.ts",
+    "class": "MainUIView",
+    "parentPath": ""
+  },
+  "global": {
+    "globalAutoLayerMarkEnable": true
+  }
+}
