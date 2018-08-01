@@ -34,7 +34,7 @@ function RemoveAllEventByObj(thisObject: any){
     g_EventsByObj[thisObject] = null;
 }
 
-function SendEvent(e: string, data?: any) {
+function sendEvent(e: string, data?: any) {
     var eve = new egret.Event(e);
     eve.data = data;
     g_Dispatcher.dispatchEvent(eve);
