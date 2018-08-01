@@ -5,11 +5,11 @@ function createShareManager(isWxgame, shareMaterials){
 	registAllShare();
 }
 
-function onShareEnter(params: any){
+function shareEnter(params: any){
 	g_ShareManager.onShareEnter(params);
 }
 
-function  onShareOut(shareType: string, activityType?: string, customParam?: any, replaceParam?: any){
+function  shareOut(shareType: string, activityType?: string, customParam?: any, replaceParam?: any){
 	g_ShareManager.onShareOut(shareType, activityType, customParam, replaceParam);
 }
 
