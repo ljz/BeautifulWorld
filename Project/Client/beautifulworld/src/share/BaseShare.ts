@@ -11,41 +11,41 @@ class BaseShare {
 
 	//微信分享
 	public wxShare(title, img, query){
-		platform.share.shareAppMessage(
-            title, img, query,
-            this.onShareSuc.bind(this),
-            this.onShareFail.bind(this),
-            this.onShareFinish.bind(this)
-        );
-        PostRequest.openEvent(this.type + "_share");
+		// platform.share.shareAppMessage(
+        //     title, img, query,
+        //     this.onShareSuc.bind(this),
+        //     this.onShareFail.bind(this),
+        //     this.onShareFinish.bind(this)
+        // );
+        // PostRequest.openEvent(this.type + "_share");
 
 	}
 
 	//H5分享
 	public h5Share(title, img, desc, shareId, _shareCustomParam){
-		HORTOR_AGENT.config({
-					share: {
-						timeline: {
-							title: title,
-							imgUrl: img,
-							success: this.onShareSuc
-						},
-						friend: {
-							title: title,
-							imgUrl: img,
-							desc: desc,
-							shareConfigId: shareId,
-							success: this.onShareSuc
-						},
-						shareCustomParam: _shareCustomParam
-					}
-				});
+		// HORTOR_AGENT.config({
+		// 			share: {
+		// 				timeline: {
+		// 					title: title,
+		// 					imgUrl: img,
+		// 					success: this.onShareSuc
+		// 				},
+		// 				friend: {
+		// 					title: title,
+		// 					imgUrl: img,
+		// 					desc: desc,
+		// 					shareConfigId: shareId,
+		// 					success: this.onShareSuc
+		// 				},
+		// 				shareCustomParam: _shareCustomParam
+		// 			}
+		// 		});
 	}
 
 	//分享成功
 	public onShareSuc(): void {
-        InitMark.wxSharing = true;
-		console.error("未实现onShareSuc");
+        // InitMark.wxSharing = true;
+		// console.error("未实现onShareSuc");
 	}
 
     public onShareFail():void{

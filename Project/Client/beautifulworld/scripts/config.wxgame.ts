@@ -36,9 +36,22 @@ const config: ResourceManagerConfig = {
                     new UglifyPlugin([{
                         sources: ["main.js"],
                         target: "main.min.js"
+                    },{
+                        sources: ["resource/default.thm.js"],
+                        
+                        target: "default.thm.js"
                     }
                     ]),
-                    new ManifestPlugin({ output: 'manifest.js' })
+                    new ManifestPlugin({ output: 'manifest.js' }),
+
+
+                  
+                    // new ModulesFixPlugin(['underscore','moment', 'md5', 'clipBoard']),
+                    // new ResSplitPlugin({
+                    //     matchers: [
+                    //         {from:"resource/**", to:`../${projectName}_wxgame_remote`}
+                    //     ]
+                    // })
                 ]
             }
         }

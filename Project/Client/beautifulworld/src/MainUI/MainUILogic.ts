@@ -37,12 +37,7 @@ class MainUILogic extends BaseLogic{
 	protected onGetNewData(){
 		console.log(">>>发送请求， 请求链接");
 		RES.getResByUrl("http://74.82.198.32:8090/get/image/url", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
-
-
 	}
-
-
-
 
 	// private urlloader:egret.URLLoader; 
 	// this.urlloader = new egret.URLLoader(); 

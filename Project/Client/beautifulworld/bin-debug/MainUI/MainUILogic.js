@@ -37,6 +37,16 @@ var MainUILogic = (function (_super) {
         console.log(">>>发送请求， 请求链接");
         RES.getResByUrl("http://74.82.198.32:8090/get/image/url", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
     };
+    // private urlloader:egret.URLLoader; 
+    // this.urlloader = new egret.URLLoader(); 
+    // private urlreq:egret.URLRequest; 
+    // this.urlreq = new egret.URLRequest(); 
+    // urlreq.url = "http://httpbin.org/user-agent"; 
+    // this.urlloader.load( urlreq ); 
+    // this.urlloader.addEventListener(egret.Event.COMPLETE, this.onComplete, this); 
+    // 	private onComplete(event:egret.Event):void{ 
+    // 	console.log(this.urlloader.data); 
+    // } 
     MainUILogic.prototype.onGetComplete = function (data) {
         console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete", data);
         // var img: egret.Texture = <egret.Texture>event;//new egret.Texture();
@@ -45,4 +55,3 @@ var MainUILogic = (function (_super) {
     return MainUILogic;
 }(BaseLogic));
 __reflect(MainUILogic.prototype, "MainUILogic");
-//# sourceMappingURL=MainUILogic.js.map

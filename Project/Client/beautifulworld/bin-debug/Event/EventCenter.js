@@ -34,4 +34,3 @@ function SendEvent(e, data) {
 }
 var g_Dispatcher = new egret.EventDispatcher();
 var g_EventsByObj = {};
-//# sourceMappingURL=EventCenter.js.map

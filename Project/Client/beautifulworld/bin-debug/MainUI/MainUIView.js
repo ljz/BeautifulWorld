@@ -16,16 +16,50 @@ var MainUIView = (function (_super) {
         _this.skinName = MainUIViewSkin;
         _this.visible = true;
         _this.init();
-        _this.midBtnType = MAINUI_MIDBTN_UPDATE_TYPE;
+        _this.midBtnType = MAINUI_MIDBTN_START_TYPE;
         _this.timer = new egret.Timer(100, 0);
         _this.timer.addEventListener(egret.TimerEvent.TIMER, function () {
+            console.log("定时函数执行");
             // console.log("this.animIndex = ", this.animIndex)
             var last = this.animIndex - 1;
             if (last == 0)
                 last = 4;
-            this["mc" + last].visible = false;
+            //1.显示边框帧动画
+            // this["mc"+last].visible = false;
             console.log("显示》〉》〉》", this.animIndex);
-            this["mc" + this.animIndex].visible = true;
+            // this["mc"+this.animIndex].visible = true;
+            //2.图片自身缩放
+            // this.tw = egret.Tween.get(this["pic"+this.animIndex], { loop: false });
+            // this.tw.to({ scaleX: 1.06, scaleY: 1.06 }, 10)
+            // .to({ scaleX: 0.8, scaleY: 0.8 }, 10)
+            // .to({ scaleX: 1, scaleY: 1 }, 10);
+            for (var i = 1; i <= 4; i++) {
+                this["pic" + i].filters = null;
+            }
+            //3.使用发光滤镜
+            // let color = 0x33CCFF;
+            // var alpha = 0.8;
+            // let blurX = 35;
+            // let blurY = 35;
+            // let strength = 2;
+            // let quality = egret.BitmapFilterQuality.HIGH;
+            // let inner = false;
+            // let knockout = false;
+            // let glowFilter = new egret.GlowFilter(color, alpha, blurX, blurY, strength, quality, inner, knockout);
+            // this["pic"+this.animIndex].filters = [glowFilter];
+            //4.使用投影滤镜
+            var distance = 6;
+            var angle = 45;
+            var color = 0X000000;
+            var alpha = 0.8;
+            var blurX = 16;
+            var blurY = 16;
+            var strength = 0.65;
+            var quality = 1 /* LOW */;
+            var inner = false;
+            var knockout = false;
+            var drawShadowFilter = new egret.DropShadowFilter(distance, angle, color, alpha, blurX, blurY, strength, quality, inner, knockout);
+            this["pic" + this.animIndex].filters = [drawShadowFilter];
             var next = this.animIndex + 1;
             if (next > 4) {
                 next = 1;
@@ -82,6 +116,11 @@ var MainUIView = (function (_super) {
     MainUIView.prototype.bindEvent = function () {
         console.log("this.midBtn == ", this.midBtn);
         this.midBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onMidBtnClick, this);
+        this.midRightBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onRightBtnClick, this);
+        this.pic1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPic1Click, this);
+        this.pic2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPic2Click, this);
+        this.pic3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPic3Click, this);
+        this.pic3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onPic4Click, this);
     };
     //监听事件：关心的消息广播之后这里就听到了。然后刷新数据
     MainUIView.prototype.ListenEvent = function () {
@@ -92,22 +131,34 @@ var MainUIView = (function (_super) {
         console.log("广播消息出去。", this.midBtnType);
         SendEvent(EventType.CLICK_MID_BTN, this.midBtnType);
     };
+    MainUIView.prototype.onRightBtnClick = function () {
+        console.log("请求数据");
+    };
+    MainUIView.prototype.onPic1Click = function () {
+    };
+    MainUIView.prototype.onPic2Click = function () {
+    };
+    MainUIView.prototype.onPic3Click = function () {
+    };
+    MainUIView.prototype.onPic4Click = function () {
+    };
     MainUIView.prototype.onUpdate = function (e) {
         console.log("刷新主界面");
         var data = e.data;
         this.midBtnType = data.type || this.midBtnType;
         if (data.start) {
             //开始旋转
-            console.log("开始旋转");
-            for (var i = 1; i < 5; i++) {
-                this["mc" + i].visible = false;
-            }
+            console.log("开始旋转2222");
+            // for(let i =1; i<5; i++){
+            // 	this["mc"+i].visible = false;
+            // }
+            this.timer.stop();
             this.timer.start();
             this.midBtnType = MAINUI_MIDBTN_END_TYPE;
             this.midBtn.label = "停！";
         }
         else if (data.stop) {
-            console.log("停止");
+            console.log("停止:this.animIndex = ", this.animIndex - 1);
             this.animIndex = 1;
             this.timer.stop();
             this.midBtn.label = "开始";
@@ -125,4 +176,3 @@ var MainUIView = (function (_super) {
     return MainUIView;
 }(BaseView));
 __reflect(MainUIView.prototype, "MainUIView");
-//# sourceMappingURL=MainUIView.js.map

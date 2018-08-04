@@ -1,0 +1,28 @@
+{
+	"initial": [
+		"js/egret.js",
+		"js/egret.web.js",
+		"js/eui.js",
+		"js/assetsmanager.js",
+		"js/tween.js",
+		"js/socket.js",
+		"js/game.js",
+		"js/experimental.js",
+		"js/promise.js",
+		"js/egret.min.js",
+		"js/egret.web.min.js",
+		"js/eui.min.js",
+		"js/assetsmanager.min.js",
+		"js/tween.min.js",
+		"js/socket.min.js",
+		"js/game.min.js",
+		"js/experimental.min.js",
+		"js/promise.min.js"
+	],
+	"game": [
+		"js/egretad.js",
+		"js/default.thm.js",
+		"js/egretad.min.js",
+		"js/main.min.js"
+	]
+}

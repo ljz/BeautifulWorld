@@ -3,7 +3,7 @@
   "compilerVersion": "5.2.5",
   "template": {},
   "target": {
-    "current": "web"
+    "current": "wxgame"
   },
   "eui": {
     "exmlRoot": [
@@ -28,19 +28,10 @@
       "name": "tween"
     },
     {
-      "name": "dragonBones"
-    },
-    {
       "name": "socket"
     },
     {
-      "name": "egretia-sdk"
-    },
-    {
       "name": "game"
-    },
-    {
-      "name": "egret-facebook"
     },
     {
       "name": "experimental"
@@ -52,5 +43,12 @@
       "name": "egretad",
       "path": "./egretad"
     }
-  ]
+  ],
+  "targets": {
+    "ios": {
+      "appname": "bworld",
+      "packagename": "com.companyname",
+      "hybird": false
+    }
+  }
 }

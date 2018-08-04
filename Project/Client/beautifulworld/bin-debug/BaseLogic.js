@@ -20,4 +20,3 @@ var BaseLogic = (function () {
     return BaseLogic;
 }());
 __reflect(BaseLogic.prototype, "BaseLogic");
-//# sourceMappingURL=BaseLogic.js.map

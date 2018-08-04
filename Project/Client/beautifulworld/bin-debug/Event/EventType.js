@@ -5,4 +5,3 @@ var EventType = {
     START_ROLL: "startRoll",
     STOP_ROLL: "stopRoll",
 };
-//# sourceMappingURL=EventType.js.map

@@ -15,9 +15,9 @@ var UiManager = (function () {
         var viewClass = info[0];
         var logicClass = info[1];
         console.log("viewClass == ", viewClass);
-        console.log("window[viewClass] = ", window[viewClass]);
-        var viewObj = new window[viewClass]();
-        var logicObj = new window[logicClass]();
+        // console.log("window[viewClass] = ", window[viewClass])
+        var viewObj = new MainUIView(); // new window[viewClass]();
+        var logicObj = new MainUILogic(); //window[logicClass]();
         this.UiList[name] = { viewObj: viewObj, logicObj: logicObj };
         parent.addChild(viewObj);
         console.log("viewObj=== ", viewObj, viewObj.parent);
@@ -43,4 +43,3 @@ function OpenPanel(name, parent, args) {
 function ClosePanel(name) {
     g_UiMgr.closePanel(name);
 }
-//# sourceMappingURL=UiManager.js.map

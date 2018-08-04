@@ -10,6 +10,8 @@ declare interface Platform {
 
     login(): Promise<any>
 
+    share();
+
 }
 
 class DebugPlatform implements Platform {
@@ -18,6 +20,10 @@ class DebugPlatform implements Platform {
     }
     async login() {
 
+    }
+
+    async share(){
+        
     }
 }
 

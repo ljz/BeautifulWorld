@@ -36,4 +36,3 @@ var BaseView = (function (_super) {
     return BaseView;
 }(eui.Component));
 __reflect(BaseView.prototype, "BaseView", ["eui.UIComponent", "egret.DisplayObject"]);
-//# sourceMappingURL=BaseView.js.map

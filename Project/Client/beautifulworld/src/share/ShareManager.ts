@@ -51,7 +51,9 @@ class ShareManager {
 	 * (自带shareType，shareConfigId,shareOwnerId参数)
 	 */
 	public onShareOut(shareType: string, activityType?: string, customParam?: any, replaceParam?: any): void {
-		// 需要打点		
+		// 需要打点	
+
+		/*	
 		if (activityType)
 			SDK_statistics.Statistics(`share_${activityType}_${shareType}`);
 		
@@ -95,6 +97,8 @@ class ShareManager {
 		} else {
 			console.error("PlatformManager error,pls regist share:" + shareType);
 		}
+
+		*/
 	}
 
 	//点击分享链接进入
@@ -111,10 +115,10 @@ class ShareManager {
 			return;
 		}
 		shareObject.shareOwnerId = params.shareOwnerId;
-		if (shareObject.shareOwnerId != InitMark.uid.toString()) {
-			shareObject.shareConfigId = params.shareConfigId;
-			shareObject.onShareEnter(params);
-		}
+		// if (shareObject.shareOwnerId != InitMark.uid.toString()) {
+		// 	shareObject.shareConfigId = params.shareConfigId;
+		// 	shareObject.onShareEnter(params);
+		// }
 	}
 
 	/**
@@ -133,11 +137,11 @@ class ShareManager {
 			"active": true
 		};
 
-		if (this.shareConfigs[type] && this.shareConfigs[type].length > 0) {
-			let _maxRand = this.shareConfigs[type].length - 1;
-			let _index = _.random(0, _maxRand);
-			_shareConfig = this.shareConfigs[type][_index];
-		}
+		// if (this.shareConfigs[type] && this.shareConfigs[type].length > 0) {
+		// 	let _maxRand = this.shareConfigs[type].length - 1;
+		// 	let _index = _.random(0, _maxRand);
+		// 	_shareConfig = this.shareConfigs[type][_index];
+		// }
 		return _shareConfig;
 	}
 }

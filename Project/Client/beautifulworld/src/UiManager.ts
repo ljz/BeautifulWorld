@@ -19,10 +19,10 @@ class UiManager {
         let viewClass = info[0];
         let logicClass = info[1];
         console.log("viewClass == ", viewClass);
-        console.log("window[viewClass] = ", window[viewClass])
-        let viewObj = new window[viewClass]();
+        // console.log("window[viewClass] = ", window[viewClass])
+        let viewObj = new MainUIView();// new window[viewClass]();
 
-        let logicObj = new window[logicClass]();
+        let logicObj = new MainUILogic(); //window[logicClass]();
         this.UiList[name] = { viewObj, logicObj };
         parent.addChild(viewObj);
         
