@@ -5,12 +5,36 @@ import com.game.beauty.demo.model.ProfileUrl;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ImageJsonUtil {
+    public static String getInsertUrlJson(long[] ids, Map<Long, ImageUrl> imageUrlMap, Map<Long, ProfileUrl> profileUrlMap) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        if (ArrayUtils.isNotEmpty(ids) && MapUtils.isNotEmpty(imageUrlMap) && MapUtils.isNotEmpty(profileUrlMap)) {
+            SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+            for (long id : ids) {
+                ImageUrl imageUrl = imageUrlMap.get(id);
+                ProfileUrl profileUrl = profileUrlMap.get(id);
+
+                JSONObject object = new JSONObject();
+                object.put("id", String.valueOf(id));
+                object.put("cerate_at", dateFormater.format(new Date(UuidUtil.getTimeMillisFromId(id))));
+                object.put("image_url", imageUrl.getImageUrl());
+                object.put("profile_url", profileUrl.getProfileUrl());
+                jsonArray.add(object.toString());
+            }
+        }
+        jsonObject.element("results", jsonArray.toString());
+        return jsonObject.toString();
+    }
+
     public static String getImageUrlsJson(List<ImageUrl> imageUrlList) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();

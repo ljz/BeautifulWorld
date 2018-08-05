@@ -7,6 +7,7 @@ import com.game.beauty.demo.model.ProfileUrl;
 import com.game.beauty.demo.scope.ScopeConfig;
 import com.game.beauty.demo.service.CommonService;
 import com.game.beauty.demo.util.ImageJsonUtil;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @SpringBootApplication
@@ -42,11 +44,17 @@ public class BeautyDemo {
             ProfileUrl profileUrlEntity = new ProfileUrl(id, profileUrl);
             mySQLDao.insertImageUrl(imageUrlEntity);
             mySQLDao.insertProfileUrl(profileUrlEntity);
-            return "true";
+
+            Map<Long, ImageUrl> imageUrlMap = Maps.newHashMap();
+            imageUrlMap.put(id, imageUrlEntity);
+            Map<Long, ProfileUrl> profileUrlMap = Maps.newHashMap();
+            profileUrlMap.put(id, profileUrlEntity);
+            return ImageJsonUtil.getInsertUrlJson(new long[]{id}, imageUrlMap, profileUrlMap);
         } catch (Exception e) {
             LogUtil.error("BeautyDemo getImageUrl failed:", e);
-            return "wrong";
         }
+
+        return ImageJsonUtil.getInsertUrlJson(null, null, null);
     }
 
     @RequestMapping(value="/get/image/urls", method=RequestMethod.GET)
@@ -56,8 +64,9 @@ public class BeautyDemo {
             return ImageJsonUtil.getImageUrlsJson(imageUrlList);
         } catch (Exception e) {
             LogUtil.error("BeautyDemo getImageUrl failed:", e);
-            return "wrong";
         }
+
+        return ImageJsonUtil.getImageUrlsJson(null);
     }
 
     @RequestMapping(value="/get/profile/url", method=RequestMethod.GET)
@@ -67,8 +76,9 @@ public class BeautyDemo {
             return ImageJsonUtil.getProfileUrlJson(profileUrlList);
         } catch (Exception e) {
             LogUtil.error("BeautyDemo getImageUrl failed:", e);
-            return "wrong";
         }
+
+        return ImageJsonUtil.getProfileUrlJson(null);
     }
 
     /*
