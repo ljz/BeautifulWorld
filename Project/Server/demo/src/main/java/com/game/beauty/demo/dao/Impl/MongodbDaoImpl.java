@@ -22,8 +22,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Service("mongodbDao")
-@Scope("singleton")
 @PropertySource(value={"classpath:application.properties"}, encoding="utf-8")
 public class MongodbDaoImpl implements MongodbDao {
 	/**
@@ -76,7 +74,6 @@ public class MongodbDaoImpl implements MongodbDao {
 	/**
 	 * create mongodb client with configured setting
 	 */
-	@PostConstruct
 	public void init() {
 		try {
 			List<ServerAddress> serverAddressList = Lists.newArrayList(new ServerAddress(mongodbHost,mongodbPort));
