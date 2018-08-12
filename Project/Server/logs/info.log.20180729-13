@@ -1,0 +1,8 @@
+2018-07-29 13:13:13 [INFO] logging filter, method: GET, uri:/showImage
+2018-07-29 13:13:16 [INFO] loadImage success
+2018-07-29 13:14:03 [INFO] logging filter, method: GET, uri:/showImage
+2018-07-29 13:14:07 [INFO] loadImage success
+2018-07-29 13:14:07 [INFO] RequestFilter time consume: 3575, method: GET, uri:/showImage
+2018-07-29 13:14:07 [INFO] logging filter, method: GET, uri:/showImage
+2018-07-29 13:14:07 [INFO] logging filter, method: GET, uri:/favicon.ico
+2018-07-29 13:14:07 [INFO] logging filter, method: GET, uri:/favicon.ico

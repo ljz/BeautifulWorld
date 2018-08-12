@@ -1,45 +1,90 @@
 package com.game.beauty.demo.resources;
 
+import com.game.beauty.demo.dao.MySQLDao;
 import com.game.beauty.demo.log.LogUtil;
+import com.game.beauty.demo.model.ImageUrl;
+import com.game.beauty.demo.model.ProfileUrl;
 import com.game.beauty.demo.scope.ScopeConfig;
-import com.game.beauty.demo.service.FileService;
+import com.game.beauty.demo.service.CommonService;
+import com.game.beauty.demo.util.ImageJsonUtil;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @SpringBootApplication
 public class BeautyDemo {
-	@Resource
-	private FileService fileService;
-
-    private final ResourceLoader resourceLoader = new DefaultResourceLoader();
-
-    private String file_path = "/Users/erming/IdeaProjects/demo/files/";    //文件上传的根目录
+    @Resource
+    private MySQLDao mySQLDao;
+    @Resource
+    private CommonService commonService;
 
     @RequestMapping("/")
-    String index() {
+    public String index() {
         return "Hello Spring Boot";
     }
+
+    @RequestMapping(value="/crawler/upload/url", method=RequestMethod.POST)
+    public String crawlerUploadUrl(@RequestParam(name="image_url", defaultValue = "", required = true) String imageUrl,
+                                   @RequestParam(name="profile_url", defaultValue = "", required = false) String profileUrl) {
+        try {
+            if (StringUtils.isBlank(imageUrl) || StringUtils.isBlank(profileUrl)) { return "false"; }
+            long id = commonService.getUuid();
+            ImageUrl imageUrlEntity = new ImageUrl(id, imageUrl);
+            ProfileUrl profileUrlEntity = new ProfileUrl(id, profileUrl);
+            mySQLDao.insertImageUrl(imageUrlEntity);
+            mySQLDao.insertProfileUrl(profileUrlEntity);
+
+            Map<Long, ImageUrl> imageUrlMap = Maps.newHashMap();
+            imageUrlMap.put(id, imageUrlEntity);
+            Map<Long, ProfileUrl> profileUrlMap = Maps.newHashMap();
+            profileUrlMap.put(id, profileUrlEntity);
+            return ImageJsonUtil.getInsertUrlJson(new long[]{id}, imageUrlMap, profileUrlMap);
+        } catch (Exception e) {
+            LogUtil.error("BeautyDemo getImageUrl failed:", e);
+        }
+
+        return ImageJsonUtil.getInsertUrlJson(null, null, null);
+    }
+
+    @RequestMapping(value="/get/image/urls", method=RequestMethod.GET)
+    public String getImageUrls(@RequestParam(name="count", defaultValue = "4", required = true) int count) {
+        try {
+            List<ImageUrl> imageUrlList = mySQLDao.getRandomImageUrls(count);
+            return ImageJsonUtil.getImageUrlsJson(imageUrlList);
+        } catch (Exception e) {
+            LogUtil.error("BeautyDemo getImageUrl failed:", e);
+        }
+
+        return ImageJsonUtil.getImageUrlsJson(null);
+    }
+
+    @RequestMapping(value="/get/profile/url", method=RequestMethod.GET)
+    public String getProfileUrl(@RequestParam(name="image_id", defaultValue = "0", required = true) long imageId) {
+        try {
+            List<ProfileUrl> profileUrlList = mySQLDao.getProfileUrls(new long[]{imageId});
+            return ImageJsonUtil.getProfileUrlJson(profileUrlList);
+        } catch (Exception e) {
+            LogUtil.error("BeautyDemo getImageUrl failed:", e);
+        }
+
+        return ImageJsonUtil.getProfileUrlJson(null);
+    }
+
+    /*
+    private FileService fileService;
+    private final ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private String file_path = "classpath:/files/";    //文件上传的根目录
 
     @RequestMapping(value = "uploadImage", method = RequestMethod.POST)
     public String uploadImage(@RequestParam("pic") MultipartFile[] imageFiles) throws IOException {
@@ -70,28 +115,24 @@ public class BeautyDemo {
             }
         } catch (Exception e) {
             map.put("errno", 1);
-			LogUtil.info("BeautyDemo uploadImage failed:", e);
+			LogUtil.error("BeautyDemo uploadImage failed:", e);
             throw e;
         }
 
         return map.toString();
     }
 
-    /*// @RequestMapping(method = RequestMethod.GET, value = "downloadImage/{filename:.+}")
-    @RequestMapping(value = "showImage", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<?> showImage(@RequestParam("pic") String pic){
+    @RequestMapping(value="/upload", method=RequestMethod.POST)
+    public String uploadFile(MultipartFile file) {
         try {
-            String path = Paths.get(file_path, pic).toString();
-			FileOutputStream fileOutputStream = fileService.loadImage(pic);
-            Resource resource = resourceLoader.getResource("file:" + path);
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(fileOutputStream);
+            FileUtils.writeByteArrayToFile(new File(file_path + file.getOriginalFilename()), file.getBytes());
+            return "ok";
         } catch (Exception e) {
-            throw e;
+            LogUtil.error("BeautyDemo uploadImage failed:", e);
+            return "wrong";
         }
-    }*/
+    }
 
-	// @RequestMapping(method = RequestMethod.GET, value = "downloadImage/{filename:.+}")
 	@RequestMapping(value = "showImage", method = RequestMethod.GET)
 	@ResponseBody
 	public  ResponseEntity<?> showImage(@RequestParam("pic") String pic, HttpServletResponse response){
@@ -123,15 +164,18 @@ public class BeautyDemo {
             toClient.write("无法打开图片");
             toClient.close();
         }
-
-
     }
 
-    /**
-     * 判断文件是否为图片
-     * @param fileName
-     * @return
-     */
+    @RequestMapping(value="/get/image/url", method=RequestMethod.GET)
+    public String getImageUrl(@RequestParam(name="score", defaultValue = "5", required = false) int score) {
+        try {
+            return ImageFiles.getImageUrl();
+        } catch (Exception e) {
+            LogUtil.error("BeautyDemo getImageUrl failed:", e);
+            return "wrong";
+        }
+    }
+
     private boolean isImageFile(String fileName){
         String[] img_type = new String[]{".jpg",".jpeg", ".png", ".gif", ".bmp"};
         if (StringUtils.isBlank(fileName)){
@@ -148,20 +192,15 @@ public class BeautyDemo {
         return false;
     }
 
-    /**
-     * 获取文件后缀名
-     * @param fileName
-     * @return
-     */
     private String getFileType(String fileName) {
         if(fileName!=null && fileName.indexOf(".")>=0) {
             return fileName.substring(fileName.lastIndexOf("."), fileName.length());
         }
         return "";
-    }
+    }*/
 
 	public static void main(String[] args) {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(new Class[]{BeautyDemo.class, ScopeConfig.class}, args);
-        BasicConfigurator.configure();
+        SpringApplication.run(new Class[]{BeautyDemo.class, ScopeConfig.class}, args);
+        BasicConfigurator.configure(); // log4j 初始化
     }
 }

@@ -8,17 +8,10 @@ import com.mongodb.client.gridfs.GridFSBuckets;
 import com.mongodb.client.gridfs.GridFSDownloadStream;
 import org.bson.types.ObjectId;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.InputStream;
 
-@Service("fileService")
-@Scope("singleton")
-@PropertySource(value={"classpath:application.properties"}, encoding="utf-8")
 public class FileServiceImpl implements FileService {
-	@Resource
 	private MongodbDao mongodbDao;
 
 	@Override
