@@ -273,7 +273,7 @@ var egret = window.egret;window.skins={};
 		t.anchorOffsetX = 0;
 		t.anchorOffsetY = 0;
 		t.height = 53;
-		t.label = "刷新";
+		t.label = "开始";
 		t.width = 139;
 		t.x = 106.99;
 		t.y = 973.73;

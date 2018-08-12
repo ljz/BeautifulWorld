@@ -633,6 +633,7 @@ var MainUILogic = (function (_super) {
         var _this = _super.call(this) || this;
         _this.midEvent = { MAINUI_MIDBTN_START_TYPE: _this.onBegin, MAINUI_MIDBTN_END_TYPE: _this.onEnd, MAINUI_MIDBTN_UPDATE_TYPE: _this.onGetNewData };
         console.log(">>>>>创建了MainUILogic对象");
+        _this.onGetNewData();
         return _this;
     }
     //监听事件：关心的消息广播之后这里就听到了。然后刷新数据
@@ -654,7 +655,7 @@ var MainUILogic = (function (_super) {
     };
     MainUILogic.prototype.onGetNewData = function () {
         console.log(">>>发送请求， 请求链接");
-        RES.getResByUrl("http://74.82.198.32:8090/get/image/url", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
+        RES.getResByUrl("http://154.8.151.240:8090/get/image/urls?count=5", this.onGetComplete, this, RES.ResourceItem.TYPE_TEXT);
     };
     // private urlloader:egret.URLLoader; 
     // this.urlloader = new egret.URLLoader(); 
@@ -666,10 +667,17 @@ var MainUILogic = (function (_super) {
     // 	private onComplete(event:egret.Event):void{ 
     // 	console.log(this.urlloader.data); 
     // } 
-    MainUILogic.prototype.onGetComplete = function (data) {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete", data);
+    MainUILogic.prototype.onGetComplete = function (event) {
+        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete", event);
+        var data = JSON.parse(event).images;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>onGetComplete22...", data);
+        for (var i = 0; i < 5; i++) {
+            console.log(">>>>data_", i, "[id]= ", data[i]["id"]);
+            console.log(">>>>data_", i, "[cerate_at]= ", data[i].cerate_at);
+            console.log(">>>>data_", i, "[image_url]= ", data[i].image_url);
+        }
         // var img: egret.Texture = <egret.Texture>event;//new egret.Texture();
-        // SendEvent(EventType.UPDATE_MAINUI, {data:texture});
+        SendEvent(EventType.UPDATE_MAINUI, { data: data });
     };
     return MainUILogic;
 }(BaseLogic));
@@ -830,14 +838,60 @@ var MainUIView = (function (_super) {
             this.midBtn.label = "开始";
             this.midBtnType = MAINUI_MIDBTN_START_TYPE;
         }
-        if (data.data) {
-            var texture = data.data;
-            this.pic1.source = texture[1];
-            this.pic2.source = texture[2];
-            this.pic3.source = texture[3];
-            this.pic4.source = texture[4];
+        else {
+            console.log(">>>>>>>>>>>>>>>>收到数据", data);
+            var arr = data.data;
+            for (var i = 0; i < 4; i++) {
+                // console.log(">>>>data_",i , "[id]= ", data[i]["id"] );
+                // console.log(">>>>data_",i , "[cerate_at]= ", data[i].cerate_at );
+                // let data = e;
+                console.log("data ========", i, arr[i]);
+                console.log(">>>>data_", arr, i, "[image_url]= ", arr[i].image_url);
+                var request = new egret.HttpRequest();
+                request.responseType = egret.HttpResponseType.ARRAY_BUFFER;
+                request.open(arr[i].image_url, egret.HttpMethod.GET);
+                // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                // request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                // request.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+                // request.setRequestHeader("Referer", "http://www.mzitu.com");
+                request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                request.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+                request.setRequestHeader("Referer", "http://www.mzitu.com");
+                request.send();
+                request.addEventListener(egret.Event.COMPLETE, this["onGetComplete" + (i + 1)], this);
+                // request.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onGetIOError,this);
+                // request.addEventListener(egret.ProgressEvent.PROGRESS,this.onGetProgress,this);
+                // RES.getResByUrl(arr[i].image_url,  this["onGetComplete"+(i+1)], this, RES.ResourceItem.TYPE_IMAGE);
+                // this["pic"+i+1].source = texture[1];
+            }
         }
+        // if(data.data){
+        // 	var texture = data.data;
+        // 	this.pic1.source = texture[1];
+        // 	this.pic2.source = texture[2];
+        // 	this.pic3.source = texture[3];
+        // 	this.pic4.source = texture[4];
+        // }
         //girls....
+    };
+    MainUIView.prototype.onGetComplete1 = function (data) {
+        // var img: egret.Texture = <egret.Texture>data;
+        // var bitmap: egret.Bitmap = new egret.Bitmap(<egret.Texture>data);
+        // this.pic1.source = img;
+        ;
+        this.pic1.$setTexture(data.currentTarget.response);
+    };
+    MainUIView.prototype.onGetComplete2 = function (data) {
+        // this.pic2.source = data;
+        this.pic2.$setTexture(data.currentTarget.response);
+    };
+    MainUIView.prototype.onGetComplete3 = function (data) {
+        // this.pic3.source = data;
+        this.pic3.$setTexture(data.currentTarget.response);
+    };
+    MainUIView.prototype.onGetComplete4 = function (data) {
+        // this.pic4.source = data;
+        this.pic4.$setTexture(data.currentTarget.response);
     };
     return MainUIView;
 }(BaseView));
