@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class RequestFilter extends HandlerInterceptorAdapter {
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
-        request.setAttribute("StartTime", startTime);
+        request.setAttribute("startTime", startTime);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return true;
     }
 
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
         long startTime = (Long) request.getAttribute("startTime");
         request.removeAttribute("startTime");

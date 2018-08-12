@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html, charset = utf-8">
+		<title>Sample Html5 File</title>
+		<script type = "text/javascript" charset = "utf-8">
+			function pageLoaded(){
+				alert("Hello World!");
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				context.fillRect(200, 100, 100, 100);
+				context.fillRect(50, 70, 90, 30);
+				context.strokeRect(110, 10, 50, 50);
+				context.strokeRect(30, 10, 50, 50);
+				context.clearRect(210, 20, 30, 20);
+				context.clearRect(260, 20, 30, 20);
+
+			}
+		</script>
+	</head>
+	<body onload = "pageLoaded();">
+		<canvas witdh = "640", height = "1386" id = "canvas" style = :border:black 1px solid;">
+		Your browser does not support HTML5 Canvas. Please shift to another browser.
+		</canvas>
+	</body>
+
+</html>

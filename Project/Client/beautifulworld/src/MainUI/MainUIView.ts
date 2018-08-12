@@ -182,7 +182,7 @@ class MainUIView extends BaseView {
 	private onMidBtnClick() {
 		//广播消息出去。
 		console.log("广播消息出去。" , this.midBtnType);
-		SendEvent(EventType.CLICK_MID_BTN, this.midBtnType);
+		sendEvent(EventType.CLICK_MID_BTN, this.midBtnType);
 	}
 
 	private onRightBtnClick() {

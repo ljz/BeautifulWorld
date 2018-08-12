@@ -28,11 +28,11 @@ class MainUILogic extends BaseLogic{
 
 	protected onBegin(){
 		console.log("开始");
-		SendEvent(EventType.UPDATE_MAINUI, {start:true});
+		sendEvent(EventType.UPDATE_MAINUI, {start:true});
 	}
 
 	protected onEnd(){
-		SendEvent(EventType.UPDATE_MAINUI, {stop:true});
+		sendEvent(EventType.UPDATE_MAINUI, {stop:true});
 	}
 
 	protected onGetNewData(){

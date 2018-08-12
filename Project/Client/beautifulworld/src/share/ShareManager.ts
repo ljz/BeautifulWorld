@@ -1,5 +1,4 @@
 
-let g_ShareManager;
 function createShareManager(isWxgame, shareMaterials){
 	g_ShareManager = new ShareManager(isWxgame, shareMaterials);
 	registAllShare();
@@ -18,7 +17,7 @@ function getShareConfig(type)
 	return g_ShareManager.getShareConfig(type);
 }
 
-
+let g_ShareManager;
 class ShareManager {
 	private shareConfigs: any = {};
 	private isWxgame: boolean;
