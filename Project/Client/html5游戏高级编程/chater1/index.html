@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html, charset = utf-8">
+		<title>Sample Html5 File</title>
+		<script type = "text/javascript" charset = "utf-8">
+			function pageLoaded(){
+				alert("Hello World!");
+				var canvas = document.getElementById("canvas");
+				var context = canvas.getContext("2d");
+				context.fillRect(200, 100, 100, 100);
+				context.fillRect(50, 70, 90, 30);
+				context.strokeRect(110, 10, 50, 50);
+				context.strokeRect(30, 10, 50, 50);
+				context.clearRect(210, 20, 30, 20);
+				context.clearRect(260, 20, 30, 20);
+
+				//绘制复杂的形状
+				context.beginPath();
+				context.moveTo(10, 120);
+				context.linTo(1, 180);
+				context.lineTo(110, 150);
+				context.fill();
+
+				context.beginPath();
+				context.moveTo(140, 160);
+				context.moveTo(140, 220);
+				context.linTo(40, 90);
+				context.closePath();
+				context.stroke();
+
+
+				context.beginPath();
+				context.moveTo(160, 160);
+				context.linTo(170, 220);
+				context.linTo(240, 210);
+				context.linTo(260, 170);
+				context.linTo(190, 140);
+				context.closePath();
+				context.stroke();
+
+				context.beginPath();
+				context.arc(100, 300, 40, 0, Math.PI, true);
+				context.stroke();
+
+
+				context.beginPath();
+				context.arc(100, 300, 40, 0, Math.PI, true);
+				context.fill();
+
+
+				context.fillText("this is some text ...", 330, 40);
+				context.font = '10 pt Arial';
+				context.fillText("This is in 10 pt Arial ...", 330 ,60);
+
+				context.font = '16 pt Arial';
+				context.strokeText('This is stroked in 16 pt Arial ...', 330, 80);
+
+				context.fillStyle = "red";
+				context.fillRect (310, 160, 110, 50);
+
+				context.strokeStyle = "green";
+
+				context.fillStyle = "rgb(255, 0, 0)";
+
+				context.fillRect(420, 160, 100, 50);
+				context.fillStyle = "rgba(0, 255, 0, 0.6)";
+				context.fillRect(450, 180, 100, 50);
+
+
+
+				//绘制图像
+				var image = document.getElementById("spaceship");
+				context.drawImage(image, 0, 350);
+				context.drawImage(image, 0, 400, 100, 25);
+
+				context.drawImage(image, 0, 0, 60, 50, 0, 420, 60, 50);
+
+
+				//平移和旋转
+				context.translate(250, 370);
+				context.rotate(Math.PI/3);
+				context.drawImage(image, 0, 0, 60, 50, -30, -25, 60, 50);
+				context.rotate(-Math.PI/3);
+				context.translate(-250, -370);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			}
+		</script>
+	</head>
+	<body onload = "pageLoaded();">
+		<canvas witdh = "640", height = "1386" id = "canvas" style = :border:black 1px solid;">
+		Your browser does not support HTML5 Canvas. Please shift to another browser.
+		</canvas>
+		<!-- <img src = "spaceship.png", id = "spaceship"> -->
+		<audio src = "music.mp3", controls="controls">
+			<source src="music.ogg" type="audio/ogg">
+			<source src="music.mp3" type="audio/mpeg">
+			Your browser does not support HTML5 Audio. Please shift to a newer browser.
+		</audio>
+		<script>
+			
+			var sound = new Audio();
+			sound.src = "music.ogg";
+			sound.play();
+
+
+			var audio = document.CreateElement("audio");
+			var mp3Support, oggSupport;
+			if(audio.canPlayType){
+				mp3Support = "" != myAudio.canPlayType("audio/mpeg");
+				oggSupport = "" != myAudio.canPlayType("audio/ogg"; codecs = "vorbis");
+			} else {
+				mp3Support = false;
+				oggSupport = false;
+			}
+
+			var sound = new Audio();
+			sound.addEventListener("canplaythrough", function(){
+				sound.play();
+			})
+			sound.src = "bounce" + soudnFileExten;
+
+
+
+
+
+			image.onload = function(){
+				alert("Image finished loading");
+			}
+
+
+			var imageLoader = {
+				loaded: true,
+				loadedImages:0,
+				totalImages:0,
+				load:function(url){
+					this.totalImages ++;
+					this.loaded = false;
+					var image = new Image();
+					image.src = url;
+					image.onload = function(){
+						imageLoader.loadedImages ++;
+						if(imageLoader.loadedImages === imageLoader.totalImages) {
+							imageLoader.loaded = true;
+						}
+					}
+					return image;
+				}
+			}
+
+
+			let img = imageLoader.load("imageurl");
+
+			context.drawImage(this.spriteImage, this.imageWith*(imageNumber), 0, this.imageWith, this.imageHeight, x, y, this.imageWidht, this.imageHeight);
+
+
+
+
+			function animationLoop(){
+
+			}
+
+			function drawingLoop(){
+				var gameLoop = setInterval(drawingLoop, 20);
+				clearInterval(gameLoop);
+			}
+
+
+			// requestAnimationFrame
+
+			
+
+
+
+
+
+
+
+		</script>
+
+	</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+#gamecontiner {
+	width:640px;
+	height: 480px;
+	background: url(images/splashscreen.png);
+	border: 1px solid black;
+}
+
+.gamelayer {
+	widows: 640px;
+	height: 480px;
+	position :absolute;
+	display: none;
+}
+
+#gamestartscreen {
+	padding-top: 250px;
+	text-align: center;
+}
+
+#gamestartscreen img {
+	margin: 10px;
+	cursor: pointer;
+}
