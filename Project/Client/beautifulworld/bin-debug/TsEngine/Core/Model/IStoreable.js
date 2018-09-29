@@ -1,0 +1,1 @@
+//# sourceMappingURL=IStoreable.js.map

@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"outFile": "bin/underscore.js",
+		"allowJs": true
+	},
+	"include": [
+		"src"
+	]
+}

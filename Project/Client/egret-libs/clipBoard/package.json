@@ -1,0 +1,5 @@
+{
+	"name": "clipBoard",
+	"version":"1.0.0",
+	"typings": "typings/clipBoard.d.ts"
+}

@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"outFile": "bin/md5.js",
+		"allowJs": true
+	},
+	"include": [
+		"src"
+	]
+}

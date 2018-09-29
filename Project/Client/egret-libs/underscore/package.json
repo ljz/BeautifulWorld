@@ -1,0 +1,5 @@
+{
+	"name": "underscore",
+	"version":"1.8.3",
+	"typings": "typings/underscore.d.ts"
+}
